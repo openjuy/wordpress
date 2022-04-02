@@ -111,6 +111,5 @@ COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
 VOLUME /var/www/html/
 
-COPY ./descargarWordpress.sh /var/www/html/
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"] 
 CMD ["php-fpm"]
