@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  db-openjuy:
+    image: mysql:8.0
+    container_name: db-openjuy
+    restart: always
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    networks:
+      - network-openjuy
+
+  php-openjuy:
+    depends_on:
+      - db-openjuy
+    build: ./.docker/php
+    image: php-openjuy
+    container_name: php-openjuy
+    restart: always
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=db:3306
+    volumes:
+      - ./html:/var/www/html
+    networks:
+      - network-openjuy
+
+  nginx-openjuy:
+    depends_on:
+      - php-openjuy
+#    image: nginx:1.15.12-alpine
+    build: ./.docker/nginx
+    image: nginx-openjuy
+    container_name: nginx-openjuy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./html:/var/www/html:cached
+      - ./nginx-conf:/etc/nginx/conf.d
+      - ./certbot-etc:/etc/letsencrypt
+    networks:
+      - network-openjuy
+
+  certbot:
+    depends_on:
+      - nginx-openjuy
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot-etc:/etc/letsencrypt
+      - ./html:/var/www/html:cached
+    command: certonly --webroot --webroot-path=/var/www/html/argenyx --email openjuy@gmail.com --agree-tos --no-eff-email --staging -d argenyxjujuy.com -d www.argenyxjujuy.com && certonly --webroot --webroot-path=/var/www/html/carpro --email openjuy@gmail.com --agree-tos --no-eff-email --staging -d carpro.com -d www.carpro.com
+
+volumes:
+  certbot-etc:
+  html:
+  dbdata:
+
+networks:
+  network-openjuy:
+    driver: bridge
