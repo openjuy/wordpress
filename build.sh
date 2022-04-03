@@ -20,3 +20,5 @@ cd .docker/php
 docker build -t php-openjuy .
 cd ../nginx
 docker build -t nginx-openjuy .
+cd ../..
+docker-compose up -d
