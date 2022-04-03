@@ -37,6 +37,9 @@ mv wordpress $nombreProyecto
 	echo ''; \
 	echo '# END WordPress'; \
 } > ./$nombreProyecto/.htaccess;
+
+# docker-compose restart
+
 docker exec php-openjuy chown -R www-data:www-data /var/www/html/$nombreProyecto
 
 echo 'Ingrese el nombre del dominio del proyecto, sin www'
