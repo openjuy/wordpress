@@ -1,3 +1,6 @@
+echo 'Ingrese el password del root MYSQL'
+read passMYSQL
+echo "MYSQL_ROOT_PASSWORD=${passMYSQL}" > .env
 FILE=./html
 FILE2=./nginx-conf
 if [ -f "$FILE" ]; then
