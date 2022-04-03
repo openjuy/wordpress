@@ -26,6 +26,7 @@ services:
       - WORDPRESS_DB_HOST=db:3306
     volumes:
       - ./html:/var/www/html
+      - ./.php-conf/php.ini:/usr/local/etc/php/conf.d/php.ini
     networks:
       - network-openjuy
 
