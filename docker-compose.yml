@@ -48,16 +48,6 @@ services:
     networks:
       - network-openjuy
 
-  certbot:
-    depends_on:
-      - nginx-openjuy
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot-etc:/etc/letsencrypt
-      - ./html:/var/www/html:cached
-    command: certonly --webroot --webroot-path=/var/www/html/argenyx --email openjuy@gmail.com --agree-tos --no-eff-email --staging -d argenyxjujuy.com -d www.argenyxjujuy.com && certonly --webroot --webroot-path=/var/www/html/carpro --email openjuy@gmail.com --agree-tos --no-eff-email --staging -d carpro.com -d www.carpro.com
-
 volumes:
   certbot-etc:
   html:

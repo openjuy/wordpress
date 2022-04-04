@@ -32,10 +32,12 @@ echo 'docker exec -t cerbot certonly --webroot --webroot-path=/var/www/html/arge
 
 echo 'Ingrese el password de root mysql'
 read dbPass
+echo "Ingrese el password de ${nombreProyecto}dba en mysql"
+read dbPassUser
 
 { \
 	echo "CREATE DATABASE ${nombreProyecto}db;"; \
-	echo "CREATE USER '${nombreProyecto}dba'@'%' identified by '${dbPass}';"; \
+	echo "CREATE USER '${nombreProyecto}dba'@'%' identified by '${dbPassUser}';"; \
 	echo "GRANT ALL ON ${nombreProyecto}db.* TO '${nombreProyecto}dba'@'%';"; \
 	echo "SHOW DATABASES;"; \
 } > usersdatabases.sql
