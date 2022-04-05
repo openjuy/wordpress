@@ -1,1 +1,1 @@
-docker exec nginx-openjuy createCertificate.sh $1 $2 
+docker exec nginx-openjuy certificado.sh $1 $2 

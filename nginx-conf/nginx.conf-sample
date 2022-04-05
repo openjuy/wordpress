@@ -1,0 +1,121 @@
+##dominio xxxxxx REEMPLAZAR POR EL DOMINIO
+#
+#server {
+#    if ($host = www.xxxxxx.com) {
+#        return 301 https://$host$request_uri;
+#    } # managed by Certbot
+#
+#
+#    if ($host = xxxxxx.com) {
+#        return 301 https://$host$request_uri;
+#    } # managed by Certbot
+#
+#
+#        listen 80;
+#        #listen [::]:80;
+#
+#	server_name xxxxxx.com www.xxxxxx.com;
+#    return 404; # managed by Certbot
+#}
+#
+#
+#server {
+#
+#	server_name xxxxxx.com www.xxxxxx.com;
+#
+#        index index.php index.html index.htm;
+#
+#	root /var/www/html/xxxxxx;
+#
+#        location ~ /.well-known/acme-challenge {
+#                allow all;
+#                root /var/www/html;
+#        }
+#
+#        location / {
+#                try_files $uri $uri/ /index.php$is_args$args;
+#        }
+#
+#        location ~ \.php$ {
+#                try_files $uri =404;
+#                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+#                fastcgi_pass php-openjuy:9000;
+#                fastcgi_index index.php;
+#                include fastcgi_params;
+#                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#                fastcgi_param PATH_INFO $fastcgi_path_info;
+#        }
+#
+#        location ~ /\.ht {
+#                deny all;
+#        }
+#
+#        location = /favicon.ico {
+#                log_not_found off; access_log off;
+#        }
+#        location = /robots.txt {
+#                log_not_found off; access_log off; allow all;
+#        }
+#        location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+#                expires max;
+#                log_not_found off;
+#        }
+#
+#    #listen [::]:443 ssl ipv6only=on; # managed by Certbot
+#    listen 443 ssl; # managed by Certbot
+#    ssl_certificate /etc/letsencrypt/live/xxxxxx/fullchain.pem; # managed by Certbot
+#    ssl_certificate_key /etc/letsencrypt/live/xxxxxx/privkey.pem; # managed by Certbot
+#    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+#    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+#}
+#
+#
+#
+#
+##dominio yyyyyy REEMPLAZAR  POR EL DOMINIO
+##CONFIGURACION PARA CONECTAR OTRO CONTENEDOR
+#
+#server {
+#    server_name yyyyyy.com www.yyyyyy.com;
+#    
+#	location  / {
+#                proxy_pass http://CONTENEDOR:PUERTO;
+#                proxy_set_header Host $http_host;
+#                proxy_set_header X-Forwarded-Host $http_host;
+#                proxy_set_header X-Real-IP $remote_addr;
+#                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#                proxy_set_header X-Forwarded-Proto $scheme;
+#        }    
+#    
+#
+#    listen [::]:443 ssl; # managed by Certbot
+#    listen 443 ssl; # managed by Certbot
+#    ssl_certificate /etc/letsencrypt/live/yyyyyy/fullchain.pem; # managed by Certbot
+#    ssl_certificate_key /etc/letsencrypt/live/yyyyyy/privkey.pem; # managed by Certbot
+#    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+#    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+#
+#
+#}
+#
+#
+#server {
+#    if ($host = www.yyyyyy.com) {
+#        return 301 https://$host$request_uri;
+#    } # managed by Certbot
+#
+#
+#    if ($host = yyyyyy.com) {
+#        return 301 https://$host$request_uri;
+#    } # managed by Certbot
+#
+#
+#    listen 80;
+#    listen [::]:80 default_server;
+#    server_name yyyyyy.com www.yyyyyy.com;
+#    return 404; # managed by Certbot
+#
+#
+#
+#
+#}

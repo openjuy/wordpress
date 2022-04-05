@@ -21,7 +21,7 @@ mv wordpress $nombreProyecto
 	echo '# END WordPress'; \
 } > ./$nombreProyecto/.htaccess;
 
-# docker-compose restart
+docker-compose restart
 
 docker exec php-openjuy chown -R www-data:www-data /var/www/html/$nombreProyecto
 

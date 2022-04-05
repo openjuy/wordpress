@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db-openjuy:
-    image: mysql:8.0
+    image: mariadb:10.5.15
     container_name: db-openjuy
     restart: always
     env_file: .env
@@ -10,7 +10,7 @@ services:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     volumes:
       - ./dbdata:/var/lib/mysql
-    command: '--default-authentication-plugin=mysql_native_password'
+    #command: '--default-authentication-plugin=mysql_native_password'
     networks:
       - network-openjuy
 
